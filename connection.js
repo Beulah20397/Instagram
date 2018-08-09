@@ -1,7 +1,7 @@
 var mongodb = require('mongodb').MongoClient;
 
 exports.connection = function(req,res,callback){
-	const url = "mongodb://localhost:27017/InstaMongoDb";
+	const url = process.env.MONGOLAB_URI;
 
 	mongodb.connect(url,{useNewUrlParser: true},function(err,database){
 		if(err){

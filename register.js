@@ -2,7 +2,7 @@ const mongodb = require('mongodb').MongoClient;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const config = require('./config');
-const url = "mongodb://localhost:27017/InstaMongoDb";
+	const url = process.env.MONGOLAB_URI;
 const connection = require('./connection.js');
 
 

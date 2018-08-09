@@ -1,7 +1,7 @@
 const mongodb = require('mongodb').MongoClient;
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
-const url = "mongodb://localhost:27017/InstaMongoDb";
+	const url = process.env.MONGOLAB_URI;
 const connection = require('./connection.js');
 
 

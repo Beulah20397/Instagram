@@ -8,7 +8,7 @@ const async = require('async');
 const crypto = require('crypto');
 //const passport = require('passport');
 
-const url = "mongodb://localhost:27017/InstaMongoDb";
+    const url = process.env.MONGOLAB_URI;
 const connection = require('./connection.js');
 
 

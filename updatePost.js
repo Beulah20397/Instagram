@@ -2,7 +2,7 @@ const mongodb = require('mongodb').MongoClient;
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
 const connection = require('./connection.js');
-const url = "mongodb://localhost:27017/InstaMongoDb";
+	const url = process.env.MONGOLAB_URI;
 
 exports.updatePost = function(req,res,callback){
 	var posts = {
