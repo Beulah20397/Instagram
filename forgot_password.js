@@ -1,7 +1,6 @@
 const mongodb = require('mongodb').MongoClient;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const config = require('./config');
 const nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 const async = require('async');
