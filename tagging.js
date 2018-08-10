@@ -2,7 +2,7 @@ const mongodb = require('mongodb').MongoClient;
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
 	
-console.log("url is",url);
+//console.log("url is",url);
 mongodb.connect(url,{useNewUrlParser: true},function(err,database){
 if(err){
 	throw err;
