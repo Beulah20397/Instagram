@@ -5,7 +5,7 @@ const mongodb = require('mongodb').MongoClient;
 const connection = require('./connection.js');
 
 
-exports.likes = function(req,res){
+exports.block_user = function(req,res){
 // user_id
 // post(video/audio/text/image)
 // post_name // #tags

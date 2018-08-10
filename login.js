@@ -1,7 +1,7 @@
 const mongodb = require('mongodb').MongoClient;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const config = require('./config')
+//const config = require('./config')
 
 
 const connection = require('./connection.js');
