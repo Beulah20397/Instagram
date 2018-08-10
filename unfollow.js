@@ -1,7 +1,7 @@
 const mongodb = require('mongodb').MongoClient;
 
 
-	const url = process.env.MONGOLAB_URI;
+	
 const connection = require('./connection.js');
 
 

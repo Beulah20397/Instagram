@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
 const connection = require('./connection.js');
 
-	const url = process.env.MONGOLAB_URI;
+	
 
 exports.deletePost = function(req,res,callback){
 	var posts = {

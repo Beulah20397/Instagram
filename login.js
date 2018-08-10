@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const config = require('./config')
 
-	const url = process.env.MONGOLAB_URI;
+
 const connection = require('./connection.js');
 
 
