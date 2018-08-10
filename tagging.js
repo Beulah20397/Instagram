@@ -1,17 +1,7 @@
 const mongodb = require('mongodb').MongoClient;
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
-	
-//console.log("url is",url);
-mongodb.connect(url,{useNewUrlParser: true},function(err,database){
-if(err){
-	throw err;
-}
-else 
-{	db = database.db('InstaMongoDb');
-	console.log("Switched to "+db.databaseName+" database");
-}
-})
+
 
 exports.tagging = function(req,res,callback){
 	var tagging_data ={
