@@ -12,7 +12,7 @@ exports.login = function(req,res){
 	const email = req.body.email;
 	const password = req.body.password;
 	console.log("email is",req.body);
-	console.log("connection is",connection.db)
+	console.log("connection is",connection)
 if(!email){
 	res.status(400);
 	res.send({
