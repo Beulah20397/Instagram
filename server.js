@@ -57,7 +57,8 @@ app.use(function(req, res, next) {
   res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");//essta linha habilita o token no header
   next();
 });
-app.use(express.static(__dirname));
+app.set('port', (process.env.PORT || 3000));
+ app.use(express.static(__dirname + '/public'));
 app.get('/', function(req, res) {
   res.send({
             "message":"Hi",
