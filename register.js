@@ -75,7 +75,7 @@ exports.register = function(req,res){
 					})
 				}
 	else{
-		db.collection('InstaUsers').findOne({email:users.email,full_name:users.full_name},function(err,result){
+		connection.collection('InstaUsers').findOne({email:users.email,full_name:users.full_name},function(err,result){
 			if(err){
 				throw err;
 			}
@@ -83,7 +83,7 @@ exports.register = function(req,res){
 			{
 				//console.log("Length of result is ",result);
 				if(!result){
-					db.collection('InstaUsers').insert(users,function(error,ress){
+					connection.collection('InstaUsers').insert(users,function(error,ress){
 					console.log('ress', ress);
 					if(error)
 						throw error;
@@ -110,7 +110,7 @@ exports.register = function(req,res){
 				}else if(result.status == 0){
 					    var myquery = { email: users.email };
   						var newvalues = { $set: {status: "1"} };
-						db.collection('InstaUsers').update(myquery,newvalues,function(err,ress){
+						connection.collection('InstaUsers').update(myquery,newvalues,function(err,ress){
 						if(err){
 							throw err;
 						}
