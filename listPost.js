@@ -16,8 +16,12 @@ exports.listPost = function(req,res,callback){
 				db.collection('InstaUsers').findOne({
 					$or: [{ '_id' : decoded._id },{ 'email': decoded.email }]
 				},function(err,result){
-					if(err)
+					if(err){
+						res.send({
+							"message" :err
+						})
 						throw err;
+					}
 					else{
 						if(!result){
 							res.status(400).send({
