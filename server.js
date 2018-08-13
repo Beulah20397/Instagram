@@ -53,7 +53,8 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "*");
   res.header('Access-Control-Allow-Credentials', "*");
-  res.header('Access-Control-Expose-Headers', 'x-access-token'); //essta linha habilita o token no header
+  res.header('Access-Control-Expose-Headers', 'x-access-token'); 
+  res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");//essta linha habilita o token no header
   next();
 });
 app.get('/', function(req, res) {
@@ -64,7 +65,7 @@ app.get('/', function(req, res) {
 app.post('/createPost',multer({storage:storage}).any('posts'),createPost.createPost);
 app.post('/updatePost',updatePost.updatePost);
 app.post('/archivePost',archivePost.archivePost);
-app.post('/listPost',listPost.listPost);
+app.get('/listPost',listPost.listPost);
 app.post('/deletePost',deletePost.deletePost);
 app.post('/tagging',tagging.tagging);
 app.post('/like',likes.likes);
