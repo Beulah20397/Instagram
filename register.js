@@ -2,7 +2,7 @@ const mongodb = require('mongodb').MongoClient;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-const connection = require('./connection.js');
+const db = require('./connection.js')
 
 
 const prepareParams = (req) => {
@@ -22,8 +22,8 @@ exports.register = function(req,res){
 	const preparedData = prepareParams(req);
 	console.log('data', preparedData)
 	console.log("extension is",preparedData.ext);
+	console.log("connection is",db)
     const hash = bcrypt.hashSync(preparedData.password, 10);
-    console.log("connection is ",connection)
     console.log(hash);
 	var users = {
 		"email"  :preparedData.email,
@@ -76,7 +76,7 @@ exports.register = function(req,res){
 					})
 				}
 	else{
-		connection.collection('InstaUsers').findOne({email:users.email,full_name:users.full_name},function(err,result){
+		db.collection('InstaUsers').findOne({email:users.email,full_name:users.full_name},function(err,result){
 			if(err){
 				throw err;
 			}
