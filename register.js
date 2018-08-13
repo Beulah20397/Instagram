@@ -23,6 +23,7 @@ exports.register = function(req,res){
 	console.log('data', preparedData)
 	console.log("extension is",preparedData.ext);
     const hash = bcrypt.hashSync(preparedData.password, 10);
+    console.log("connection is ",connection)
     console.log(hash);
 	var users = {
 		"email"  :preparedData.email,
