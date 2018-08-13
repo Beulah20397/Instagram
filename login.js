@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const connection = require('./connection.js');
 
 
-exports.login = function(req,res){
+exports.login = function(req,res,db){
 	//console.log(req.body);
 	const email = req.body.email;
 	const password = req.body.password;
