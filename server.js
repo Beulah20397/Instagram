@@ -57,11 +57,12 @@ app.use(function(req, res, next) {
   res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");//essta linha habilita o token no header
   next();
 });
-express().use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+app.get('/', function(req, res) {
+  res.send({
+            "message":"Hi",
+        })
+});
 
 app.post('/createPost',multer({storage:storage}).any('posts'),createPost.createPost);
 app.post('/updatePost',updatePost.updatePost);
@@ -79,4 +80,4 @@ app.post('/forgot_password',forgot_password.forgot_password);
 // app.post('/facebookLogin',facebookLogin.facebookLogin);
 // app.post('/googleLogin',googleLogin.googleLogin);
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 8080);
