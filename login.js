@@ -7,12 +7,12 @@ const bcrypt = require('bcryptjs');
 const connection = require('./connection.js');
 
 
-exports.login = function(req,res,db){
+exports.login = function(req,res){
 	//console.log(req.body);
 	const email = req.body.email;
 	const password = req.body.password;
 	console.log("email is",req.body);
-	console.log("connection is",connection)
+	
 if(!email){
 	res.status(400);
 	res.send({
