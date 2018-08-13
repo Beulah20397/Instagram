@@ -56,6 +56,11 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Expose-Headers', 'x-access-token'); //essta linha habilita o token no header
   next();
 });
+app.get('/', function(req, res) {
+  res.send({
+            "message":"Hi",
+        })
+});
 app.post('/createPost',multer({storage:storage}).any('posts'),createPost.createPost);
 app.post('/updatePost',updatePost.updatePost);
 app.post('/archivePost',archivePost.archivePost);
