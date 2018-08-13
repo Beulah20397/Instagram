@@ -65,7 +65,7 @@ app.get('/', function(req, res) {
 app.post('/createPost',multer({storage:storage}).any('posts'),createPost.createPost);
 app.post('/updatePost',updatePost.updatePost);
 app.post('/archivePost',archivePost.archivePost);
-app.get('/listPost',listPost.listPost);
+app.get('instagram-beulah.herokuapp.com/listPost',listPost.listPost);
 app.post('/deletePost',deletePost.deletePost);
 app.post('/tagging',tagging.tagging);
 app.post('/like',likes.likes);
