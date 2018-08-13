@@ -57,13 +57,11 @@ app.use(function(req, res, next) {
   res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");//essta linha habilita o token no header
   next();
 });
-app.set('port', (process.env.PORT || 3000));
- app.use(express.static(__dirname + '/public'));
-app.get('/', function(req, res) {
-  res.send({
-            "message":"Hi",
-        })
-});
+express().use(express.static(path.join(__dirname, 'public')))
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'ejs')
+  .get('/', (req, res) => res.render('pages/index'))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 app.post('/createPost',multer({storage:storage}).any('posts'),createPost.createPost);
 app.post('/updatePost',updatePost.updatePost);
