@@ -9,7 +9,7 @@ exports.connection = function(req,res,callback){
 		}
 		else 
 		{
-			const db = database.db('InstaMongoDb');
+			
 			console.log("Switched to "+db.databaseName+" database");
 		}
 	})
