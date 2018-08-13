@@ -9,7 +9,8 @@ exports.connection = function(req,res,callback){
 		}
 		else 
 		{
-			
+			console.log("database",database)
+			var db = database.db('instamongodb');
 			console.log("Switched to "+db.databaseName+" database");
 		}
 	})
