@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 //const config = require('./config')
 
 
-const connection = require('./connection.js');
+const db = require('./connection.js');
 
 
 exports.login = function(req,res){
