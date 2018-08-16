@@ -16,12 +16,14 @@ exports.follow = function(req,res,callback){
         if(err){
             console.log("error is",err)
         }else{
+        		console.log("fdgfg", mongodb.db());
+				const query = mongodb.db("instamongodb");
 				console.log("decoded email is",decoded._id);
 				console.log("Post id is",posts);
 
 					
 
-				db.collection('InstaUsers').findOne({
+				query.collection('InstaUsers').findOne({
 					$or: [{ '_id' : decoded._id },{ 'email': decoded.email }]
 				},function(err,result){
 					if(err)
@@ -35,7 +37,7 @@ exports.follow = function(req,res,callback){
 						}
 						else
 						{
-							db.collection('follows').find({$and: [{ 'user_id' : decoded._id },{ 'following_id': posts.following_id}]}).toArray(function(err,result){
+							query.collection('follows').find({$and: [{ 'user_id' : decoded._id },{ 'following_id': posts.following_id}]}).toArray(function(err,result){
 							if(err)
 								throw err;
 							else{
@@ -43,7 +45,7 @@ exports.follow = function(req,res,callback){
 								console.log('length of result is',result.length);
 								if(!(result.length == 0)){
 									console.log('length  result is', result.length);
-										db.collection('follows').findOneAndUpdate({$and: [{ 'user_id' : decoded._id },{ 'following_id': posts.following_id}]},{$set:{'follow_count':"0"}},function(err,resul){
+										query.collection('follows').findOneAndUpdate({$and: [{ 'user_id' : decoded._id },{ 'following_id': posts.following_id}]},{$set:{'follow_count':"0"}},function(err,resul){
 										if(err)
 											throw err;
 										else{
@@ -59,7 +61,7 @@ exports.follow = function(req,res,callback){
 									})
 								}else{
 									console.log("result of table follows is",result.length);
-									db.collection('follows').insert({"user_id":decoded._id,"following_id":posts.following_id,"follow_count":"1"},function(err,resul){
+									query.collection('follows').insert({"user_id":decoded._id,"following_id":posts.following_id,"follow_count":"1"},function(err,resul){
 									if(err)
 										throw err;
 									else{

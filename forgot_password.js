@@ -1,4 +1,4 @@
-const mongodb = require('mongodb').MongoClient;
+const mongodb = require('./connection.js'); 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
@@ -8,12 +8,13 @@ const crypto = require('crypto');
 //const passport = require('passport');
 
    
-const connection = require('./connection.js');
 
 
 exports.forgot_password = function(req,res,callback){ 
+            console.log("fdgfg", mongodb.db());
+                const query = mongodb.db("instamongodb");
    
-            db.collection('InstaUsers').findOne({ 'email': req.body.email },function(err,result){
+            query.collection('InstaUsers').findOne({ 'email': req.body.email },function(err,result){
                 if(err)
                     throw err;
                 else{

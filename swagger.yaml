@@ -1,0 +1,406 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Instagram APIs"
+basePath: "/"
+schemes:
+- "https"
+consumes: 
+- "application/json"
+produces: 
+- "application/json"
+paths:
+  /register:
+    post:
+        produces:
+        - "application/json"
+        consumes:
+        - "application/x-www-form-urlencoded"
+        parameters:
+        - name: "email"
+          in: "formData"
+          required: true
+          description: "email required for registration"
+          type: "string"
+        - name: "full_name"
+          in: "formData"
+          required: true
+          description: "full name required for registration"
+          type: "string"
+        - name: "phone"
+          in: "formData"
+          required: true
+          description: "phone required for registration"
+          type: "string"
+        - name: "password"
+          in: "formData"
+          format: "password"
+          required: true
+          description: "password required for registration"
+          type: "string"
+        - name: "image_path"
+          in: "formData"
+          required: true
+          description: "display picture"
+          type: "string"
+        responses:
+          200:
+            description: "200 response"
+            
+        
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+              
+  /login:
+    post:
+      produces:
+      - "application/json"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      parameters:
+        - name: "email"
+          in: "formData"
+          description: "email for logging into API"
+          type: "string"
+        - name: "password"
+          in: "formData"
+          required: true
+          format: "password"
+          description: "password required for logging into API"
+          type: "string"
+        - name: "phone"
+          in: "formData"
+          type: "string"
+          description: "phone for logging into API"
+      responses:
+        200:
+          description: "200 response"
+          
+      
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+  /createPost:
+    post:
+        produces:
+        - "application/json"
+        consumes:
+        - "application/x-www-form-urlencoded"
+        parameters:
+        - name: "post"
+          in: "formData"
+          required: true
+          description: "text Post for creating POst"
+          type: "string"
+        - name: "post_name"
+          in: "formData"
+          required: true
+          description: "Name of the Post"
+          type: "string"
+        - name: "location"
+          in: "formData"
+          description: "location of the user/post"
+          type: "string"
+        - name: "imagePosts"
+          in: "formData"
+          description: "Images or Video that is to be posted (Could be Video/Image)"
+          type: "string"
+        responses:
+          200:
+            description: "200 response"
+            
+        
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+  /updatePost:
+    post:
+        produces:
+        - "application/json"
+        consumes:
+        - "application/x-www-form-urlencoded"
+        parameters:
+        - name: "post"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "textual post that has to be edited"
+        - name: "post_name"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "name of the post that has to be updated"
+        - name: "location"
+          in: "formData"
+          description: "location of the post that has to be updated"
+          type: "string"
+        - name: "imagePosts"
+          in: "formData"
+          description: "video or image that has to be updated"
+          type: "string"
+        responses:
+          200:
+            description: "200 response"
+            
+        
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+  /archivePost:
+    post:
+        produces:
+        - "application/json"
+        consumes:
+        - "application/x-www-form-urlencoded"
+        parameters:
+        - name: "post_id"
+          in: "formData"
+          required: true
+          description: "Id of the post that user want to archive"
+          type: "string"
+        responses:
+          200:
+            description: "200 response"
+            
+        
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+    
+  /deletePost:
+    post:
+        produces:
+        - "application/json"
+        consumes:
+        - "application/x-www-form-urlencoded"
+        parameters:
+        - name: "post_id"
+          in: "formData"
+          required: true
+          description: "Id of the post that is to be deleted"
+          type: "string"
+        responses:
+          200:
+            description: "200 response"
+            
+        
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"  
+    
+  /follow:
+    post:
+        produces:
+        - "application/json"
+        consumes:
+        - "application/x-www-form-urlencoded"
+        parameters:
+        - name: "following_id"
+          in: "formData"
+          required: true
+          description: "id of the following user"
+          type: "string"
+        responses:
+          200:
+            description: "200 response"
+            
+        
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+  /likes:
+    post:
+        produces:
+        - "application/json"
+        consumes:
+        - "application/x-www-form-urlencoded"
+        parameters:
+        - name: "post_id"
+          in: "formData"
+          required: true
+          description: "post id that user want to like"
+          type: "string"
+        responses:
+          200:
+            description: "200 response"
+            
+        
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+  /listPost:
+    get:
+        produces:
+        - "application/json"
+        consumes:
+        - "application/x-www-form-urlencoded"
+        parameters:
+        - name: "user_id"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "id of the user used to show the complete logs of post "
+        responses:
+          200:
+            description: "200 response"
+            
+        
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+  /tagging:
+    post:
+      produces:
+      - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      parameters:
+        - name: "post_id"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "post id in which user wants to tag"
+        - name: "tag_id"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "user id that is tagged in the post"
+      responses:
+        200:
+          description: "200 response"
+          
+      
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"

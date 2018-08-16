@@ -1,10 +1,9 @@
-const mongodb = require('mongodb').MongoClient;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 //const config = require('./config')
 
 
-const db = require('./connection.js');
+const mongodb = require('./connection.js')
 
 
 exports.login = function(req,res){
@@ -68,7 +67,9 @@ else if(!password){
 
 // }
 else{
-		db.collection('InstaUsers').findOne({email:email},function(err,result){
+		console.log("fdgfg", mongodb.db());
+		const query = mongodb.db("instamongodb");
+		query.collection('InstaUsers').findOne({email:email},function(err,result){
 			if(err){
 				throw err;
 			}

@@ -1,8 +1,8 @@
-const mongodb = require('mongodb').MongoClient;
+// const mongodb = require('mongodb');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-const db = require('./connection.js')
+const mongodb = require('./connection.js')
 
 
 const prepareParams = (req) => {
@@ -19,10 +19,11 @@ const prepareParams = (req) => {
 	return paramsObj;
 };
 exports.register = function(req,res){
+	console.log("hello")
 	const preparedData = prepareParams(req);
 	console.log('data', preparedData)
 	console.log("extension is",preparedData.ext);
-	console.log("connection is",db)
+	// console.log("connection is",db)
     const hash = bcrypt.hashSync(preparedData.password, 10);
     console.log(hash);
 	var users = {
@@ -76,15 +77,18 @@ exports.register = function(req,res){
 					})
 				}
 	else{
-		db.collection('InstaUsers').findOne({email:users.email,full_name:users.full_name},function(err,result){
+		console.log("fdgfg", mongodb.db());
+		const query = mongodb.db("instamongodb");
+		query.collection('InstaUsers').findOne({email:users.email,full_name:users.full_name},function(err,result){
 			if(err){
 				throw err;
+				console.log("error is",err)
 			}
 			else
 			{
 				//console.log("Length of result is ",result);
 				if(!result){
-					connection.collection('InstaUsers').insert(users,function(error,ress){
+					query.collection('InstaUsers').insert(users,function(error,ress){
 					console.log('ress', ress);
 					if(error)
 						throw error;
@@ -111,7 +115,7 @@ exports.register = function(req,res){
 				}else if(result.status == 0){
 					    var myquery = { email: users.email };
   						var newvalues = { $set: {status: "1"} };
-						connection.collection('InstaUsers').update(myquery,newvalues,function(err,ress){
+						query.collection('InstaUsers').update(myquery,newvalues,function(err,ress){
 						if(err){
 							throw err;
 						}

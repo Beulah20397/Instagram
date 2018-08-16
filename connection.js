@@ -1,18 +1,18 @@
-var mongodb = require('mongodb').MongoClient;
-	const url = "mongodb://beulah:Beulah123@ds117422.mlab.com:17422/instamongodb";
-	console.log("url is",url)
+var client = require('mongodb').MongoClient,
+mongodb	=null;
 
-exports.connection = mongodb.connect(url,function(err,database){
-		let db;
-		if(err){
-			console.log('errrr'. err);
-			throw err;
-		}
-		else 
-		{
-			db = database.db('instamongodb')
-			console.log("runnling live on 8080",database, "*********************************************************");
-			
-		}
-		
-	})
+module.exports =  {
+connect: function(dburl, callback) {
+    client.connect(dburl,
+        function(err, db){
+            mongodb = db;
+            if(callback) { callback(); }
+        });
+},
+db: function() {
+    return mongodb;
+},
+close: function() {
+    mongodb.close();
+ }
+};	

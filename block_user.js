@@ -1,10 +1,4 @@
-const mongodb = require('mongodb').MongoClient;
-
-
-	
-const connection = require('./connection.js');
-
-
+const mongodb = require('./connection.js');
 exports.block_user = function(req,res){
 // user_id
 // post(video/audio/text/image)
@@ -28,6 +22,8 @@ exports.block_user = function(req,res){
 	}
 
 	else{
+				console.log("fdgfg", mongodb.db());
+				const query = mongodb.db("instamongodb");
 		var following = db.collection('InstaUsers').find(follows.follow_id,function(err,result){
 			if(err) throw err;
 			else{
@@ -50,7 +46,7 @@ exports.block_user = function(req,res){
 				}
 				else
 				{
-					db.collection('follows').findOneAndUpdate({follows.follower_id},function(err,res){
+					query.collection('follows').findOneAndUpdate({follows.follower_id},function(err,res){
 					if(err)
 						throw err;
 					else{

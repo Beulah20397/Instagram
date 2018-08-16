@@ -1,8 +1,8 @@
-const mongodb = require('mongodb').MongoClient;
+
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
 	
-const connection = require('./connection.js');
+const mongodb = require('./connection.js');
 
 
 exports.comment = function(req,res,callback){
@@ -17,9 +17,11 @@ exports.comment = function(req,res,callback){
         if(err){
             console.log("error is",err)
         }else{
+        		console.log("fdgfg", mongodb.db());
+				const query = mongodb.db("instamongodb");
 				console.log("decoded email is",decoded._id);
 				//console.log("Post id is",posts);
-				db.collection('InstaUsers').findOne({
+				query.collection('InstaUsers').findOne({
 					$or: [{ '_id' : decoded._id },{ 'email': decoded.email }]
 				},function(err,result){
 					if(err)
@@ -33,7 +35,7 @@ exports.comment = function(req,res,callback){
 						}
 						else
 						{
-							db.collection('comment').insert({"user_id":decoded._id,"post_id":comment_data.post_id,"comment":comment_data.comment,"status":"1"},function(err,result){
+							query.collection('comment').insert({"user_id":decoded._id,"post_id":comment_data.post_id,"comment":comment_data.comment,"status":"1"},function(err,result){
 								if(err)
 									throw err;
 								else

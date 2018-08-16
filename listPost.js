@@ -1,4 +1,4 @@
-const mongodb = require('mongodb').MongoClient;
+const mongodb = require('./connection.js');	
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
 
@@ -11,9 +11,11 @@ exports.listPost = function(req,res,callback){
         if(err){
             console.log("error is",err)
         }else{
+        		console.log("fdgfg", mongodb.db());
+				const query = mongodb.db("instamongodb");
 				console.log("decoded id is",decoded._id);
 				console.log("user id is",user_id);
-				db.collection('InstaUsers').findOne({
+				query.collection('InstaUsers').findOne({
 					$or: [{ '_id' : decoded._id },{ 'email': decoded.email }]
 				},function(err,result){
 					if(err){
@@ -36,7 +38,7 @@ exports.listPost = function(req,res,callback){
 							var imagepath = {};
 							var listPostResult = {};
 							var imagePostResult = {};
-							db.collection('instaPost').find({"user_id":decoded._id,"status":"1"}).sort({"_id":-1}).toArray(function(err,resul){
+							query.collection('instaPost').find({"user_id":decoded._id,"status":"1"}).sort({"_id":-1}).toArray(function(err,resul){
 								if(err)
 									throw err;
 								else{
@@ -51,7 +53,7 @@ exports.listPost = function(req,res,callback){
 												"location" : resul[i].location
 											}
 											var resultId = resul[i]._id.toString();
-											db.collection('imagePosts').find({"post_id":resultId}).toArray(function(err,ressw){
+											query.collection('imagePosts').find({"post_id":resultId}).toArray(function(err,ressw){
 												if(err) throw err;
 												else{
 													for(var j = 0;j<ressw.length;j++){

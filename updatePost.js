@@ -1,7 +1,7 @@
-const mongodb = require('mongodb').MongoClient;
+
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
-const connection = require('./connection.js');
+const mongodb = require('./connection.js');
 	
 
 exports.updatePost = function(req,res,callback){
@@ -37,8 +37,10 @@ exports.updatePost = function(req,res,callback){
 			}
 			
 			else{
+				console.log("fdgfg", mongodb.db());
+				const query = mongodb.db("instamongodb");
 				console.log("decoded email is",decoded._id);
-				db.collection('InstaUsers').findOne({
+				query.collection('InstaUsers').findOne({
 					$or: [{ '_id' : decoded._id },{ 'email': decoded.email }]
 				},function(err,result){
 					if(err)
@@ -52,7 +54,7 @@ exports.updatePost = function(req,res,callback){
 						}
 						else
 						{
-							db.collection('instaPost').findOneAndUpdate({"_id":ObjectID(posts.post_id)},{$set:{"post":posts.post,"post_name":posts.post_name,"location":posts.location,"user_id":decoded._id}},function(err,result){
+							query.collection('instaPost').findOneAndUpdate({"_id":ObjectID(posts.post_id)},{$set:{"post":posts.post,"post_name":posts.post_name,"location":posts.location,"user_id":decoded._id}},function(err,result){
 							if(err)
 								throw err;
 							else{

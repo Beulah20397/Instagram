@@ -3,7 +3,7 @@ const multer = require('multer');
 const app = express();
 const bodyParser = require('body-parser');
 const fs = require('fs-extra');
-//importing modules
+
 const createPost = require('./createPost');
 const updatePost = require('./updatePost');
 const archivePost = require('./archivePost');
@@ -16,8 +16,12 @@ const comment = require('./comment');
 const login = require('./login');
 const register = require('./register');
 const forgot_password = require('./forgot_password');
-
 const facebook_login = require('./facebook_login');
+const mongodb = require('./connection');
+mongodb.connect('mongodb://beulah:Beulah123@ds117422.mlab.com:17422/instamongodb', function(err,res) {
+  if(err) throw err
+ console.log('Connected to MongoDB.');
+});
 
 app.use(bodyParser.json({limit: '500mb'}));
 app.use(bodyParser.urlencoded({limit: '500mb', extended:false}));
@@ -67,7 +71,7 @@ app.get('/', function(req, res) {
 app.post('/createPost',multer({storage:storage}).any('posts'),createPost.createPost);
 app.post('/updatePost',updatePost.updatePost);
 app.post('/archivePost',archivePost.archivePost);
-app.get('/listPost',listPost.listPost);
+app.get('/listPost/:id',listPost.listPost);
 app.post('/deletePost',deletePost.deletePost);
 app.post('/tagging',tagging.tagging);
 app.post('/like',likes.likes);
@@ -80,4 +84,4 @@ app.post('/forgot_password',forgot_password.forgot_password);
 // app.post('/facebookLogin',facebookLogin.facebookLogin);
 // app.post('/googleLogin',googleLogin.googleLogin);
 
-app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 8080); 

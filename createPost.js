@@ -1,10 +1,9 @@
-const mongodb = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId; 
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const fs = require('fs');
 var path = require('path');
-const connection = require('./connection.js');	
+const mongodb = require('./connection.js');	
 
 exports.createPost = function(req,res,callback){
 	var posts = {
@@ -35,7 +34,9 @@ exports.createPost = function(req,res,callback){
 				console.log("Fields Empty");
 			}
 			else{
-				db.collection('InstaUsers').findOne({
+				console.log("fdgfg", mongodb.db());
+				const query = mongodb.db("instamongodb");
+				query.collection('InstaUsers').findOne({
 					$or: [{ '_id' : decoded._id },{ 'email': decoded.email }]
 				},function(err,result){
 					if(err)
@@ -49,7 +50,7 @@ exports.createPost = function(req,res,callback){
 						}
 						else
 						{
-							db.collection('instaPost').insert({"post":posts.post,"post_name":posts.post_name,"location":posts.location,"status":posts.status,"user_id":decoded._id},function(err,result){
+							query.collection('instaPost').insert({"post":posts.post,"post_name":posts.post_name,"location":posts.location,"status":posts.status,"user_id":decoded._id},function(err,result){
 							if(err)
 								throw err;
 							else{
@@ -61,7 +62,7 @@ exports.createPost = function(req,res,callback){
 										var post_image_id = result.ops[0]._id.toString();
 										console.log("image post id",ObjectId(post_image_id))
 										console.log("image post id type", typeof ObjectId(post_image_id).toString())
-										db.collection('imagePosts').insert({"post_id":post_image_id,"image_path":imagepath},function(err,resul){
+										query.collection('imagePosts').insert({"post_id":post_image_id,"image_path":imagepath},function(err,resul){
 										if(err)
 											throw err;
 										else
@@ -100,7 +101,7 @@ exports.createPost = function(req,res,callback){
     									}
     									// res.writeHead(206, head);
     									file.pipe(res);
-    									db.collection('imagePosts').insert({"post_id":post_image_id,"image_path":path},function(err,resul){
+    									query.collection('imagePosts').insert({"post_id":post_image_id,"image_path":path},function(err,resul){
 										if(err)
 											throw err;
 										else
