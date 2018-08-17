@@ -13,7 +13,7 @@ const prepareParams = (req) => {
 	paramsObj.phone = req.body.phone,
 	paramsObj.password = req.body.password;
 	paramsObj.mailformat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	paramsObj.ext = req.file.originalname.split('.')[1];
+	paramsObj.ext = req.file && req.file.originalname ? req.file.originalname.split('.')[1] : "";
 	paramsObj.imagepath =paramsObj.full_name+Date.now()+"."+paramsObj.ext;
 	paramsObj.myRegex = /^([a-zA-Z0-9_-]+)$/;
 	return paramsObj;
@@ -86,6 +86,7 @@ exports.register = function(req,res){
 			}
 			else
 			{
+				
 				//console.log("Length of result is ",result);
 				if(!result){
 					query.collection('InstaUsers').insert(users,function(error,ress){

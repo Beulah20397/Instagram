@@ -1,9 +1,10 @@
-const mongodb = require('mongodb').MongoClient;
+
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
 	
 
-const connection = require('./connection.js');
+const mongodb = require('./connection.js');	
+
 
 exports.follow = function(req,res,callback){
 	var posts = {

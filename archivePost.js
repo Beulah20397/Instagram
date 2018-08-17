@@ -1,16 +1,18 @@
-
+const ObjectId = require('mongodb').ObjectId; 
 const jwt = require('jsonwebtoken');
-const ObjectID = require('mongodb').ObjectID;
-	
-const mongodb = require('./connection.js');
-
+const multer = require('multer');
+const fs = require('fs');
+var path = require('path');
+const mongodb = require('./connection.js');	
 
 exports.archivePost = function(req,res,callback){
 	var posts = {
 		"post_id"  :req.body.post_id
 	};
 	var token = req.headers['x-access-token'];
-	console.log(req.headers);
+	//console.log(req.headers);
+	console.log("req.body ",req.body)
+	console.log("ObjectId",ObjectId)
  	jwt.verify(token, 'secret',function(err,decoded){
         if(err){
             console.log("error is",err)
@@ -33,41 +35,28 @@ exports.archivePost = function(req,res,callback){
 						}
 						else
 						{
-							// db.collection('instaPost').findOne({"_id":ObjectID(posts.post_id)},function(er,ress){
-							// 	if(er)
-							// 		throw er;
-							// 	else{
-							// 		if(ress.value.se)
-							// 	}
-							// })
-							query.collection('instaPost').findOne({"_id":ObjectID(posts.post_id)},function(err,result){
+							console.log("post id",posts.post_id)
+							query.collection('instaPost').findOne({"_id":ObjectId(posts.post_id)},function(err,result){
+								console.log("result is",result)
 							if(err)
 								throw err;
 							else{
-								if(result.status == 2){
-								res.status(400);
-								res.send({
-								"message":"Document already Archived",
-								"status":false,
-								"data":result.status
-								});
-								console.log("Document already Archived");
-								}
-								else if(result.status == 0){
-									res.status(400).send({
-										"message" : "Document is deleted",
+								if(result.status == 0){
+									res.status(400)
+									res.send({
+										"message" : "Document is already deleted",
 										"status" : false,
 										"data" : result.status
 									});
 								}
 								else{
-									query.collection('instaPost').findOneAndUpdate({"_id":ObjectID(posts.post_id)},{$set:{"status":"2"}},function(er,ress){
+									query.collection('instaPost').findOneAndUpdate({"_id":ObjectId(posts.post_id)},{$set:{"status":"0"}},function(er,ress){
 										if(er){
 											throw er;
 										}
 										else{
 											res.status(200).send({
-												"message":"Document Deleted",
+												"message":"Document deleted",
 												auth:false,
 												"data":ress.value.status
 											})
@@ -77,7 +66,7 @@ exports.archivePost = function(req,res,callback){
 								
 							}
 
-							})			
+							})		
 						}
 				})
         	}

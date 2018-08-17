@@ -11,7 +11,8 @@ const crypto = require('crypto');
 
 
 exports.forgot_password = function(req,res,callback){ 
-            console.log("fdgfg", mongodb.db());
+            var email = req.body.email;
+            //console.log("fdgfg", mongodb.db());
                 const query = mongodb.db("instamongodb");
    
             query.collection('InstaUsers').findOne({ 'email': req.body.email },function(err,result){
@@ -26,22 +27,27 @@ exports.forgot_password = function(req,res,callback){
                         })
 
                     }else{
+                        console.log("hi")
                         var smtpTransport = nodemailer.createTransport({
-                            host: 'smtp.gmail.com',
+                            host: 'email-smtp.us-west-2.amazonaws.com',
+      //        secure: 'tls',
                             port: '587',
                             auth: {
-                                user: 'beulah@yopmail.com',
-                                pass: 'mobikasa@'
-                            }
+                                user: 'AKIAISYNEOQO76S32XFQ',
+                                pass: 'Ag7VtQAftnaWO2uVFsF+vEVAl+LWDCYcJCSt1Jvo7rli'
+                             }
                         });
+                         console.log("smtpTransport",smtpTransport)
                         var mailOptions = {
-                        from: "beulahbabu20397@gmail.com", // sender address
-                        to: "beulah@mobikasa.com", // list of receivers
+                        from: "bhavya@selotsoft.com", // sender address
+                        to: "bhavya@selotsoft.com", // list of receivers
                         subject: 'Hello ✔', // Subject line
                         text: 'Hello world 🐴', // plaintext body
                         html: '<b>Hello world 🐴</b>' // html body
-}
+                        }
+
                     };
+                    
                     smtpTransport.sendMail(mailOptions,function(error,info){
                         if(error){
                             console.log("error is",error);

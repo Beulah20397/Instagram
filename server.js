@@ -24,7 +24,7 @@ mongodb.connect('mongodb://beulah:Beulah123@ds117422.mlab.com:17422/instamongodb
 });
 
 app.use(bodyParser.json({limit: '500mb'}));
-app.use(bodyParser.urlencoded({limit: '500mb', extended:false}));
+app.use(bodyParser.urlencoded({limit: '500mb', extended:true}));
 
 
 var storage = multer.diskStorage({
@@ -71,7 +71,7 @@ app.get('/', function(req, res) {
 app.post('/createPost',multer({storage:storage}).any('posts'),createPost.createPost);
 app.post('/updatePost',updatePost.updatePost);
 app.post('/archivePost',archivePost.archivePost);
-app.get('/listPost/:id',listPost.listPost);
+app.get('/listPost',listPost.listPost);
 app.post('/deletePost',deletePost.deletePost);
 app.post('/tagging',tagging.tagging);
 app.post('/like',likes.likes);

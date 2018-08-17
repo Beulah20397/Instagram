@@ -10,7 +10,7 @@ exports.likes = function(req,res,callback){
 	};
 
 	var token = req.headers['x-access-token'];
-	console.log(req.headers);
+	//console.log(req.headers);
  	jwt.verify(token, 'secret',function(err,decoded){
         if(err){
             console.log("error is",err)
@@ -40,6 +40,7 @@ exports.likes = function(req,res,callback){
 						}
 						else
 						{
+							console.log("post_id",posts.post_id)
 							query.collection('likes').find({$and: [{ 'user_id' : decoded._id },{ 'post_id': posts.post_id}]}).toArray(function(err,result){
 							if(err)
 								throw err;

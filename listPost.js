@@ -4,13 +4,14 @@ const ObjectID = require('mongodb').ObjectID;
 
 	
 exports.listPost = function(req,res,callback){
-	var user_id  = req.body.user_id;
+	
 	var token = req.headers['x-access-token'];
 	console.log(req.headers);
  	jwt.verify(token, 'secret',function(err,decoded){
         if(err){
             console.log("error is",err)
         }else{
+        		var user_id  = decoded._id;
         		console.log("fdgfg", mongodb.db());
 				const query = mongodb.db("instamongodb");
 				console.log("decoded id is",decoded._id);

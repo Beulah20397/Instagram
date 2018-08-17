@@ -6,6 +6,7 @@ const mongodb = require('./connection.js');
 
 exports.updatePost = function(req,res,callback){
 	var posts = {
+		"post_id" :req.body.post_id,
 		"post"  :req.body.post,
 		"post_name" : req.body.post_name,
 		"location" : req.body.location,
