@@ -3,10 +3,13 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const fs = require('fs');
 var path = require('path');
-const mongodb = require('./connection.js');	
+const mongodb = require('mongodb').MongoClient;
 
-	
-
+let db;
+var url = "mongodb://beulah:Beulah123@ds117422.mlab.com:17422/instamongodb"
+mongodb.connect(url, (err, client) => {
+	 db = client.db('instamongodb');
+})
 exports.deletePost = function(req,res,callback){
 	var posts = {
 		"post_id"  :req.body.post_id
@@ -19,8 +22,7 @@ exports.deletePost = function(req,res,callback){
         if(err){
             console.log("error is",err)
         }else{
-        		console.log("fdgfg", mongodb.db());
-				const query = mongodb.db("instamongodb");
+        	
 				console.log("decoded email is",decoded._id);
 				console.log("Post id is",posts);
 				query.collection('InstaUsers').findOne({

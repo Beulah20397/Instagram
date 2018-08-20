@@ -1,8 +1,12 @@
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
-const mongodb = require('./connection.js');	
+const mongodb = require('mongodb').MongoClient;
 
-
+let db;
+var url = "mongodb://beulah:Beulah123@ds117422.mlab.com:17422/instamongodb"
+mongodb.connect(url, (err, client) => {
+	 db = client.db('instamongodb');
+})
 exports.tagging = function(req,res,callback){
 	var tagging_data ={
 		"post_id"  :req.body.post_id,
@@ -15,11 +19,10 @@ exports.tagging = function(req,res,callback){
         if(err){
             console.log("error is",err)
         }else{
-        		console.log("fdgfg", mongodb.db());
-				const query = mongodb.db("instamongodb");
+
 				console.log("decoded email is",decoded._id);
 				//console.log("Post id is",posts);
-				query.collection('InstaUsers').findOne({
+				db.collection('InstaUsers').findOne({
 					$or: [{ '_id' : decoded._id },{ 'email': decoded.email }]
 				},function(err,result){
 					if(err)
@@ -46,12 +49,12 @@ exports.tagging = function(req,res,callback){
 										"tag_id" : arr[i]
 									}
 									console.log("ids are",tagged_ids);
-									query.collection('tags').find({$and: [{ 'post_id' : tagging_data.post_id },{ 'tag_id': arr[i]}]}).toArray(function(err,result){
+									db.collection('tags').find({$and: [{ 'post_id' : tagging_data.post_id },{ 'tag_id': arr[i]}]}).toArray(function(err,result){
 										if(err)
 											throw err;
 										else{
 											if(result.length == 0){
-												query.collection('tags').insert({"post_id":tagging_data.post_id,"tag_id":tagging_data.tag_id},function(err,result){
+												db.collection('tags').insert({"post_id":tagging_data.post_id,"tag_id":tagging_data.tag_id},function(err,result){
 													if(err)
 														throw error
 													else

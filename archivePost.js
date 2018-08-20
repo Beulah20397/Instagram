@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const fs = require('fs');
 var path = require('path');
+const mongodb = require('mongodb').MongoClient;
+
 let db;
 var url = "mongodb://beulah:Beulah123@ds117422.mlab.com:17422/instamongodb"
 mongodb.connect(url, (err, client) => {

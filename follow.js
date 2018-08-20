@@ -1,11 +1,13 @@
 
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
-	
+const mongodb = require('mongodb').MongoClient;
 
-const mongodb = require('./connection.js');	
-
-
+let db;
+var url = "mongodb://beulah:Beulah123@ds117422.mlab.com:17422/instamongodb"
+mongodb.connect(url, (err, client) => {
+	 db = client.db('instamongodb');
+})
 exports.follow = function(req,res,callback){
 	var posts = {
 		"following_id"  :req.body.following_id
@@ -18,13 +20,13 @@ exports.follow = function(req,res,callback){
             console.log("error is",err)
         }else{
         		console.log("fdgfg", mongodb.db());
-				const query = mongodb.db("instamongodb");
+				const db = mongodb.db("instamongodb");
 				console.log("decoded email is",decoded._id);
 				console.log("Post id is",posts);
 
 					
 
-				query.collection('InstaUsers').findOne({
+				db.collection('InstaUsers').findOne({
 					$or: [{ '_id' : decoded._id },{ 'email': decoded.email }]
 				},function(err,result){
 					if(err)
@@ -38,7 +40,7 @@ exports.follow = function(req,res,callback){
 						}
 						else
 						{
-							query.collection('follows').find({$and: [{ 'user_id' : decoded._id },{ 'following_id': posts.following_id}]}).toArray(function(err,result){
+							db.collection('follows').find({$and: [{ 'user_id' : decoded._id },{ 'following_id': posts.following_id}]}).toArray(function(err,result){
 							if(err)
 								throw err;
 							else{
@@ -46,7 +48,7 @@ exports.follow = function(req,res,callback){
 								console.log('length of result is',result.length);
 								if(!(result.length == 0)){
 									console.log('length  result is', result.length);
-										query.collection('follows').findOneAndUpdate({$and: [{ 'user_id' : decoded._id },{ 'following_id': posts.following_id}]},{$set:{'follow_count':"0"}},function(err,resul){
+										db.collection('follows').findOneAndUpdate({$and: [{ 'user_id' : decoded._id },{ 'following_id': posts.following_id}]},{$set:{'follow_count':"0"}},function(err,resul){
 										if(err)
 											throw err;
 										else{
@@ -62,7 +64,7 @@ exports.follow = function(req,res,callback){
 									})
 								}else{
 									console.log("result of table follows is",result.length);
-									query.collection('follows').insert({"user_id":decoded._id,"following_id":posts.following_id,"follow_count":"1"},function(err,resul){
+									db.collection('follows').insert({"user_id":decoded._id,"following_id":posts.following_id,"follow_count":"1"},function(err,resul){
 									if(err)
 										throw err;
 									else{

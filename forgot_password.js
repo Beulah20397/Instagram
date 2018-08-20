@@ -1,21 +1,23 @@
-const mongodb = require('./connection.js'); 
+//const mongodb = require('./connection.js'); 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 const async = require('async');
 const crypto = require('crypto');
-//const passport = require('passport');
+const mongodb = require('mongodb').MongoClient;
 
-   
-
-
+let db;
+var url = "mongodb://beulah:Beulah123@ds117422.mlab.com:17422/instamongodb"
+mongodb.connect(url, (err, client) => {
+     db = client.db('instamongodb');
+})
 exports.forgot_password = function(req,res,callback){ 
             var email = req.body.email;
             //console.log("fdgfg", mongodb.db());
-                const query = mongodb.db("instamongodb");
+               
    
-            query.collection('InstaUsers').findOne({ 'email': req.body.email },function(err,result){
+            db.collection('InstaUsers').findOne({ 'email': req.body.email },function(err,result){
                 if(err)
                     throw err;
                 else{
