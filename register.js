@@ -79,6 +79,7 @@ exports.register = function(req,res){
 	else{
 		console.log("fdgfg", mongodb.db());
 		const query = mongodb.db("instamongodb");
+		console.log("query is",query)
 		query.collection('InstaUsers').findOne({email:users.email,full_name:users.full_name},function(err,result){
 			if(err){
 				throw err;
