@@ -1,11 +1,12 @@
+const mongodb = require('mongodb').MongoClient;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-//const config = require('./config')
-
-
-const mongodb = require('./connection.js')
-
-
+let db;
+//const mongodb = require('. /connection.js')
+var url = "mongodb://beulah:Beulah123@ds117422.mlab.com:17422/instamongodb"
+mongodb.connect(url, (err, client) => {
+	 db = client.db('instamongodb');
+})
 exports.login = function(req,res){
 	//console.log(req.body);
 	const email = req.body.email;
@@ -67,9 +68,8 @@ else if(!password){
 
 // }
 else{
-		console.log("fdgfg", mongodb.db());
-		const query = mongodb.db("instamongodb");
-		query.collection('InstaUsers').findOne({email:email},function(err,result){
+		
+		db.collection('InstaUsers').findOne({email:email},function(err,result){
 			if(err){
 				throw err;
 			}
