@@ -3,8 +3,11 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const fs = require('fs');
 var path = require('path');
-const mongodb = require('./connection.js');	
-
+let db;
+var url = "mongodb://beulah:Beulah123@ds117422.mlab.com:17422/instamongodb"
+mongodb.connect(url, (err, client) => {
+	 db = client.db('instamongodb');
+})
 exports.archivePost = function(req,res,callback){
 	var posts = {
 		"post_id"  :req.body.post_id
@@ -17,11 +20,10 @@ exports.archivePost = function(req,res,callback){
         if(err){
             console.log("error is",err)
         }else{
-        		console.log("fdgfg", mongodb.db());
-				const query = mongodb.db("instamongodb");
+        		
 				console.log("decoded email is",decoded._id);
 				console.log("Post id is",posts);
-				query.collection('InstaUsers').findOne({
+				db.collection('InstaUsers').findOne({
 					$or: [{ '_id' : decoded._id },{ 'email': decoded.email }]
 				},function(err,result){
 					if(err)
@@ -36,7 +38,7 @@ exports.archivePost = function(req,res,callback){
 						else
 						{
 							console.log("post id",posts.post_id)
-							query.collection('instaPost').findOne({"_id":ObjectId(posts.post_id)},function(err,result){
+							db.collection('instaPost').findOne({"_id":ObjectId(posts.post_id)},function(err,result){
 								console.log("result is",result)
 							if(err)
 								throw err;
@@ -50,7 +52,7 @@ exports.archivePost = function(req,res,callback){
 									});
 								}
 								else{
-									query.collection('instaPost').findOneAndUpdate({"_id":ObjectId(posts.post_id)},{$set:{"status":"0"}},function(er,ress){
+									db.collection('instaPost').findOneAndUpdate({"_id":ObjectId(posts.post_id)},{$set:{"status":"0"}},function(er,ress){
 										if(er){
 											throw er;
 										}
