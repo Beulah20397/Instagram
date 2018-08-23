@@ -8,6 +8,7 @@ mongodb.connect(url, (err, client) => {
 	 db = client.db('instamongodb');
 })
 exports.tagging = function(req,res,callback){
+	console.log("req.body",req.body)
 	var tagging_data ={
 		"post_id"  :req.body.post_id,
 		"tag_id" :req.body.tag_id

@@ -43,7 +43,8 @@ exports.listPost = function(req,res,callback){
 							var imagepath = {};
 							var listPostResult = {};
 							var imagePostResult = {};
-							db.collection('instaPost').find({"user_id":decoded._id,"status":"1"}).sort({"_id":-1}).toArray(function(err,resul){
+							db.collection('instaPost').find({"user_id":decoded._id,"status":1}).sort({"_id":-1}).toArray(function(err,resul){
+								console.log("result",resul)
 								if(err)
 									throw err;
 								else{
