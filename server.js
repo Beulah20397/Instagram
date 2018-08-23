@@ -16,7 +16,7 @@ const comment = require('./comment');
 const login = require('./login');
 const register = require('./register');
 const forgot_password = require('./forgot_password');
-const facebook_login = require('./facebook_login');
+const facebook_auth = require('./facebook_auth');
 const mongodb = require('./connection');
 mongodb.connect('mongodb://beulah:Beulah123@ds117422.mlab.com:17422/instamongodb', function(err,res) {
   if(err) throw err
@@ -80,8 +80,4 @@ app.post('/comment',comment.comment);
 app.post('/login',login.login);
 app.post('/register',multer({storage:storage}).single('image'),register.register);
 app.post('/forgot_password',forgot_password.forgot_password);
-
-// app.post('/facebookLogin',facebookLogin.facebookLogin);
-// app.post('/googleLogin',googleLogin.googleLogin);
-
 app.listen(process.env.PORT || 8080); 

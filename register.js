@@ -2,7 +2,6 @@ const mongodb = require('mongodb').MongoClient;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 let db;
-//const mongodb = require('. /connection.js')
 var url = "mongodb://beulah:Beulah123@ds117422.mlab.com:17422/instamongodb"
 mongodb.connect(url, (err, client) => {
 	 db = client.db('instamongodb');

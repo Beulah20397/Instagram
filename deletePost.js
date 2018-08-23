@@ -17,7 +17,6 @@ exports.deletePost = function(req,res,callback){
 	var token = req.headers['x-access-token'];
 	//console.log(req.headers);
 	console.log("req.body ",req.body)
-	console.log("ObjectId",ObjectId)
  	jwt.verify(token, 'secret',function(err,decoded){
         if(err){
             console.log("error is",err)
@@ -25,7 +24,7 @@ exports.deletePost = function(req,res,callback){
         	
 				console.log("decoded email is",decoded._id);
 				console.log("Post id is",posts);
-				query.collection('InstaUsers').findOne({
+				db.collection('InstaUsers').findOne({
 					$or: [{ '_id' : decoded._id },{ 'email': decoded.email }]
 				},function(err,result){
 					if(err)
@@ -40,7 +39,7 @@ exports.deletePost = function(req,res,callback){
 						else
 						{
 							console.log("post id",posts.post_id)
-							query.collection('instaPost').findOne({"_id":ObjectId(posts.post_id)},function(err,result){
+							db.collection('instaPost').findOne({"_id":ObjectId(posts.post_id)},function(err,result){
 								console.log("result is",result)
 							if(err)
 								throw err;
@@ -54,7 +53,7 @@ exports.deletePost = function(req,res,callback){
 									});
 								}
 								else{
-									query.collection('instaPost').findOneAndUpdate({"_id":ObjectId(posts.post_id)},{$set:{"status":"0"}},function(er,ress){
+									db.collection('instaPost').findOneAndUpdate({"_id":ObjectId(posts.post_id)},{$set:{"status":"0"}},function(er,ress){
 										if(er){
 											throw er;
 										}
