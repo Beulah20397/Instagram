@@ -19,8 +19,7 @@ exports.follow = function(req,res,callback){
         if(err){
             console.log("error is",err)
         }else{
-        		console.log("fdgfg", mongodb.db());
-				const db = mongodb.db("instamongodb");
+        	
 				console.log("decoded email is",decoded._id);
 				console.log("Post id is",posts);
 
