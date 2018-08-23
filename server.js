@@ -16,7 +16,6 @@ const comment = require('./comment');
 const login = require('./login');
 const register = require('./register');
 const forgot_password = require('./forgot_password');
-const facebook_auth = require('./facebook_auth');
 const mongodb = require('./connection');
 mongodb.connect('mongodb://beulah:Beulah123@ds117422.mlab.com:17422/instamongodb', function(err,res) {
   if(err) throw err
